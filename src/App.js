@@ -1,25 +1,8 @@
 import React,{Component} from 'react';
 import Form from './components/Form';
 import Result from './components/Result';
-
-
-// function register(){
-//   fetch("https://api.stya.net/nim/register", {
-//     method: 'POST',
-//     headers: new Headers({
-//       'Content-Type': 'application/x-www-form-urlencoded',
-//     }),
-//       body: "username=testuser4444444&password=pass1234"
-//     })
-//     .then(res=>res.json())
-//     .then(json=>{
-//       this.setState({
-//         isLoaded:true,
-//         items:json,
-//       })
-//     });
-// }
-
+import {authenticate} from './components/AuthUtil';
+import './styles/Sign.css';
 
 
 class App extends Component{
@@ -27,11 +10,31 @@ class App extends Component{
     prevResult:[],
     curResult:[],
     nextResult:[],
-    name: "",
-    nim: "",
-    count: "",
+    name: undefined,
+    nim: undefined,
+    count: undefined,
     page: undefined,
     token: undefined
+  }
+
+  requestById = async (page,key) => {
+    const token = localStorage.getItem('token');
+    const request=await fetch(`https://api.stya.net/nim/byid?query=${this.state.nim}&count=${this.state.count}&page=${page}`, {
+      method: 'GET',
+      headers: new Headers({'Auth-Token': token})
+    });
+    const result=await request.json();
+    this.setState({ [key]:result.payload });
+  }
+
+  requestByName = async (page,key) => {
+    const token = localStorage.getItem('token');
+    const request=await fetch(`https://api.stya.net/nim/byname?name=${this.state.name}&count=${this.state.count}&page=${page}`, {
+      method: 'GET',
+      headers: new Headers({'Auth-Token': token})
+    });
+    const result=await request.json();
+    this.setState({ [key]:result.payload });
   }
 
   search = (e) => {
@@ -39,56 +42,45 @@ class App extends Component{
     const form=e.target.elements;
     this.setState({
       name:form.name.value,
-      nim:form.nim.value,
+      // nim:form.nim.value,
       count:form.count.value,
       prevResult:[],
       curResult:[],
       nextResult:[],
       page:undefined
-    },
-      ()=>this.request(0)
-    );
+    });
+    const auth=authenticate();
+    console.log(auth);
+    if (auth===1){
+      const token = localStorage.getItem('token');
+      let expiry = new Date(localStorage.getItem('expire'));
+      this.request(token,0);
+      expiry.setDate(expiry.getDate()+1);
+      localStorage.setItem('expire',expiry);
+    }else{
+      alert('session timeout');
+      this.props.history.push('/');
+    }
+
   }
 
-  requestById = async (state,page,key) => {
-    const header = new Headers({'Auth-Token': '626c2c164c1d2c44262a89af36b62ca500f783a3963ab5ae3af7c993daa66b86'});
-    // console.log(state);
-    const request=await fetch(`https://api.stya.net/nim/byid?query=${state.nim}&count=${state.count}&page=${page}`, {
-      method: 'GET',
-      headers: header
-    })
-    const result=await request.json();
-    // console.log(result.payload);
-    this.setState({ [key]:result.payload });
-  }
-
-  requestByName = async (state,page,key) => {
-    const header = new Headers({'Auth-Token': '626c2c164c1d2c44262a89af36b62ca500f783a3963ab5ae3af7c993daa66b86'});
-    const request=await fetch(`https://api.stya.net/nim/byname?name=${state.name}&count=${state.count}&page=${page}`, {
-      method: 'GET',
-      headers: header
-    })
-    const result=await request.json();
-    this.setState({ [key]:result.payload });
-  }
 
   request = (page) => {
-    const state = this.state;
     if(page>0){
       console.log('masuk prev');
-      this.requestByName(state,page-1,'prevResult');
+      this.requestByName(page-1,'prevResult');
     }
 
     console.log('masuk cur');
-    this.requestByName(state,page,'curResult');
+    this.requestByName(page,'curResult');
 
     console.log('masuk next');
-    this.requestByName(state,page+1,'nextResult');
+    this.requestByName(page+1,'nextResult');
     
     this.setState({ page });
   }
 
-  next = (e) => {
+  next = () => {
     const nextPage=this.state.page+1;
     this.setState({
       nextResult:[]
@@ -97,7 +89,7 @@ class App extends Component{
     );
   }
 
-  prev = (e) => {
+  prev = () => {
     const prevPage=this.state.page-1;
     this.setState({
       prevResult:[]
@@ -121,8 +113,5 @@ class App extends Component{
     );
   }
 }
-
-
-
 
 export default App;
