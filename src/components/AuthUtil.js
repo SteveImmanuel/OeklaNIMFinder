@@ -19,3 +19,7 @@ export function updateExpiry(){
     expiry.setDate(expiry.getDate()+1);
     localStorage.setItem('expire',expiry);
 }
+
+export function logout(){
+    localStorage.clear();
+}

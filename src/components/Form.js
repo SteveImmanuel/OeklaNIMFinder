@@ -11,10 +11,12 @@ const Form = props => (
             </label>
         </div> */}
         <form onSubmit={props.search}>
-            <input className='input-form' type='text' name='name' placeholder='Nama'/>
+            <input className='form-sign' type='text' name='query' placeholder='Nama'/>
             {/* <input type='text' name='nim' placeholder='NIM'/> */}
-            <input className='input-form' type='text' name='count' placeholder='Jumlah per Halaman (10)'/>
-            <button className='button-form'>Cari</button>
+            <input className='form-sign' type='text' name='count' placeholder='Jumlah per Halaman (10)'/>
+            <div className='test'>
+                <button className='button-sign'>Cari</button>
+            </div>
         </form>
     </div>
 );

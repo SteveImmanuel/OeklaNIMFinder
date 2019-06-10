@@ -28,8 +28,8 @@ const Result = props => (
         {/* } */}
         
         {props.curResult.length===0 && <p>Hasil tidak ditemukan</p>}
-        {props.prevResult.length!==0 && <button onClick={props.prev}>Sebelumnya</button>}
-        {props.nextResult.length!==0 && <button onClick={props.next}>Selanjutnya</button>}
+        {props.prevResult.length!==0 && <button id='prev' className='button-sign' onClick={props.prev}>Sebelumnya</button>}
+        {props.nextResult.length!==0 && <button id='next' className='button-sign' onClick={props.next}>Selanjutnya</button>}
     </div>
 );
 

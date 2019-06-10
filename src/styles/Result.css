@@ -6,6 +6,7 @@
 .table-result{
     margin:auto;
     border:1px solid rgb(57, 57, 57);
+    border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -21,7 +22,6 @@
     border:1px solid rgb(57, 57, 57);
     text-align: center;
     padding:5px;
-    border-radius: 5px;
 }
 
 .table-result tr:nth-child(even){
@@ -30,4 +30,14 @@
 
 .table-result tr:hover {
     background-color: #ddd;
+}
+
+#next{
+    float: right;
+    margin:10px;
+}
+
+#prev{
+    float: left;
+    margin:10px;
 }

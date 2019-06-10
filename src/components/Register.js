@@ -2,13 +2,14 @@ import React from "react";
 import {Link} from 'react-router-dom';
 
 const Register = props => (
-    <div className='sign-container'>
+    <div className='main-sign'>
+        <p className='title-sign'>Pendaftaran</p>
         <form onSubmit={props.register}>
-            <input className='input-form' type="text" name="username" placeholder="Username (max. 20 karakter)" maxLength="20"/>
+            <input className='form-sign' type="text" name="username" placeholder="Username (maks. 20 karakter)" maxLength="20"/>
             <br/>
-            <input className='input-form' type="text" name="password" placeholder="Password"/>
+            <input className='form-sign' type="password" name="password" placeholder="Password"/>
             <br/>
-            <button className='button-form'>Daftar</button>
+            <button className='button-sign'>Daftar</button>
         </form>
         <br/>
         <p>Sudah punya akun? Lakukan login di <Link onClick={props.showLogin}>sini</Link></p>

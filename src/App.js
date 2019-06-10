@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
 import Form from './components/Form';
 import Result from './components/Result';
-import {authenticate} from './components/AuthUtil';
+import Header from './components/Header';
+import {authenticate, updateExpiry, logout} from './components/AuthUtil';
 import './styles/Sign.css';
 
 
@@ -10,97 +11,93 @@ class App extends Component{
     prevResult:[],
     curResult:[],
     nextResult:[],
-    name: undefined,
-    nim: undefined,
-    count: undefined,
-    page: undefined,
-    token: undefined
+    page: null,
   }
 
-  requestById = async (page,key) => {
+  requestAPI = async (page,key) => { //type 0=byID, type 1=byName
     const token = localStorage.getItem('token');
-    const request=await fetch(`https://api.stya.net/nim/byid?query=${this.state.nim}&count=${this.state.count}&page=${page}`, {
+    const query = localStorage.getItem('query');
+    const count = localStorage.getItem('count');
+    const type = localStorage.getItem('type');
+    // console.log(page);
+    var link;
+    if(type===0){
+      link = `https://api.stya.net/nim/byid?query=${query}&count=${count}&page=${page}`;
+    }else{
+      link = `https://api.stya.net/nim/byname?name=${query}&count=${count}&page=${page}`;
+    }
+    const request=await fetch(link, {
       method: 'GET',
       headers: new Headers({'Auth-Token': token})
     });
     const result=await request.json();
-    this.setState({ [key]:result.payload });
-  }
-
-  requestByName = async (page,key) => {
-    const token = localStorage.getItem('token');
-    const request=await fetch(`https://api.stya.net/nim/byname?name=${this.state.name}&count=${this.state.count}&page=${page}`, {
-      method: 'GET',
-      headers: new Headers({'Auth-Token': token})
-    });
-    const result=await request.json();
+    // console.log(result);
     this.setState({ [key]:result.payload });
   }
 
   search = (e) => {
     e.preventDefault();
     const form=e.target.elements;
+    localStorage.setItem('query',form.query.value);
+    localStorage.setItem('count',form.count.value);
+    localStorage.setItem('type',1);
     this.setState({
-      name:form.name.value,
-      // nim:form.nim.value,
-      count:form.count.value,
       prevResult:[],
       curResult:[],
       nextResult:[],
-      page:undefined
-    });
-    const auth=authenticate();
-    console.log(auth);
-    if (auth===1){
-      const token = localStorage.getItem('token');
-      let expiry = new Date(localStorage.getItem('expire'));
-      this.request(token,0);
-      expiry.setDate(expiry.getDate()+1);
-      localStorage.setItem('expire',expiry);
-    }else{
-      alert('session timeout');
-      this.props.history.push('/');
-    }
-
-  }
-
-
-  request = (page) => {
-    if(page>0){
-      console.log('masuk prev');
-      this.requestByName(page-1,'prevResult');
-    }
-
-    console.log('masuk cur');
-    this.requestByName(page,'curResult');
-
-    console.log('masuk next');
-    this.requestByName(page+1,'nextResult');
-    
-    this.setState({ page });
+      page:null
+    }, () => {
+        if (authenticate()===1) {
+          updateExpiry();
+          this.setState({ page:0 }
+          , ()=> {
+            this.requestAPI(this.state.page,'curResult');
+            this.requestAPI(this.state.page+1,'nextResult');
+          });
+        } else {
+          alert('Sesi sudah habis. Silahkan lakukan login kembali');
+          this.props.history.push('/');
+        }
+      }
+    );
   }
 
   next = () => {
-    const nextPage=this.state.page+1;
+    const newCur = this.state.nextResult;
+    const newPrev = this.state.curResult;
+    const newPage = this.state.page+1;
     this.setState({
-      nextResult:[]
-    },
-      this.request(nextPage)
-    );
+      prevResult:newPrev,
+      curResult:newCur,
+      nextResult:[],
+      page:newPage
+    },() => {
+      this.requestAPI(this.state.page+1,'nextResult');
+    });
   }
 
   prev = () => {
-    const prevPage=this.state.page-1;
+    const newCur = this.state.prevResult;
+    const newNext = this.state.curResult;
+    const newPage = this.state.page-1;
     this.setState({
-      prevResult:[]
-    },
-      this.request(prevPage)
-    );
+      prevResult:[],
+      curResult:newCur,
+      nextResult:newNext,
+      page:newPage
+    },() => {
+      if(this.state.page-1<0){
+        this.setState({ prevResult:[] });
+      }else{
+        this.requestAPI(this.state.page-1,'prevResult');
+      }
+    });
   }
 
   render(){
     return(
       <div>
+        <Header logout={logout} />
         <Form search={this.search}/>
         <Result 
           prevResult={this.state.prevResult}
