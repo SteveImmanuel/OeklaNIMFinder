@@ -32,7 +32,7 @@ class Sign extends React.Component {
             this.props.history.push('/home');
         }else{
             //wrong pass / username
-            this.setState({ message:'Username atau password salah !' });
+            this.setState({ message:'Username atau password salah!' });
         }
     }
 
@@ -51,7 +51,7 @@ class Sign extends React.Component {
             this.showLogin();
             this.setState({ message:'Akun berhasil dibuat, silahkan login menggunakan username dan password tadi'});
         }else{
-            this.setState({ message:'Username sudah digunakan, coba yang lain !'});
+            this.setState({ message:'Username sudah digunakan, coba yang lain!'});
         }
     }
 

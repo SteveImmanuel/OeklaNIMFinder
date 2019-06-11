@@ -3,17 +3,14 @@ import '../styles/Form.css';
 
 const Form = props => (
     <div>
-        {/* <div className="onoffswitch">
-            <input type="checkbox" name="onoffswitch" className="onoffswitch-checkbox" id="myonoffswitch" checked></input>
-            <label className="onoffswitch-label" for="myonoffswitch">
-                <span className="onoffswitch-inner"></span>
-                <span className="onoffswitch-switch"></span>
-            </label>
-        </div> */}
         <form onSubmit={props.search}>
-            <input className='form-sign' type='text' name='query' placeholder='Nama'/>
-            {/* <input type='text' name='nim' placeholder='NIM'/> */}
-            <input className='form-sign' type='text' name='count' placeholder='Jumlah per Halaman (10)'/>
+            <input className='form-sign' type='text' name='query' placeholder='Ketikkan pencarian...'/>
+            <input className='form-sign' id='count' type='number' name='count' placeholder='Jumlah per Halaman (10)'/>
+            <select className ='select-sign' name='type'>
+                <option value='-1'>Tipe Pencarian</option>
+                <option value='0'>NIM</option>
+                <option value='1'>Nama</option>
+            </select>
             <div className='test'>
                 <button className='button-sign'>Cari</button>
             </div>

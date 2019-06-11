@@ -15,9 +15,9 @@ export function authenticate(){
 }
 
 export function updateExpiry(){
-    let expiry = new Date(localStorage.getItem('expire'));
-    expiry.setDate(expiry.getDate()+1);
-    localStorage.setItem('expire',expiry);
+    let newExpiry = new Date();
+    newExpiry.setDate(newExpiry.getDate()+1);
+    localStorage.setItem('expire',newExpiry);
 }
 
 export function logout(){

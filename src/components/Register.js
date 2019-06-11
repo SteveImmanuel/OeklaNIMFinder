@@ -12,7 +12,7 @@ const Register = props => (
             <button className='button-sign'>Daftar</button>
         </form>
         <br/>
-        <p>Sudah punya akun? Lakukan login di <Link onClick={props.showLogin}>sini</Link></p>
+        <p>Sudah punya akun? Lakukan login di <Link to='/' onClick={props.showLogin}>sini</Link></p>
     </div>
 );
 

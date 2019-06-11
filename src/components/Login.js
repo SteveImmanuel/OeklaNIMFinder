@@ -12,7 +12,7 @@ const Login = props => (
             <button className='button-sign'>Masuk</button>
         </form>
         <br/>
-        <p>Baru pertama kali? Lakukan pendaftaran di <Link onClick={props.showRegister}>sini</Link></p>
+        <p>Baru pertama kali? Lakukan pendaftaran di <Link to='/' onClick={props.showRegister}>sini</Link></p>
     </div>
 );
 
