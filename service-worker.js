@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/OeklaNIMFinder/precache-manifest.8f86366dc17daa03b027c9d5e6392674.js"
+  "/OeklaNIMFinder/precache-manifest.3800d8188026bc3852dea057a5e5aacb.js"
 );
 
 self.addEventListener('message', (event) => {
