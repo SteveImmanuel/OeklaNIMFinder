@@ -1,10 +1,10 @@
-.main-sign{
+.main-wrapper{
     height:100%;
     width: 100%;
     text-align: center;
 }
 
-.form-sign{
+.form-field{
     border-radius: 5px 5px 0px 0px;
     min-width: 350px;
     height:50px;
@@ -19,7 +19,7 @@
     transition: all 200ms ease-in-out;
 }
 
-.select-sign{
+.select-field{
     width:200px;
     letter-spacing: 2px;
     padding:10px;
@@ -32,7 +32,7 @@
     width:20%;
 }
 
-.button-sign {
+.button {
     border: solid 2px rgb(46, 46, 137);
     background: transparent;
     padding: 10px;
@@ -47,26 +47,26 @@
     min-width: 100px;
 }
 
-.form-sign:hover{
+.form-field:hover{
     background: rgb(200, 200, 200);
 }
 
-.form-sign:focus{
+.form-field:focus{
     background: transparent;
 }
 
-.button-sign:hover{
+.button:hover{
     background:rgb(46, 46, 137);
     color:white;
 }
 
-.title-sign{
+.title{
     font-size: 1.5rem;
     font-weight: 500;
     letter-spacing: 1px;
 }
 
-.message-sign{
+.message{
     min-width: 350px;
     margin:auto;
     text-align: center;
@@ -81,8 +81,7 @@
     margin-bottom: 10px;
 }
 
-.test{
+.button-wrapper {
     display: inline;
-    width:100%;
     text-align: center;
 }

@@ -2,8 +2,7 @@ import React from 'react';
 import Form from './components/Form';
 import Result from './components/Result';
 import Header from './components/Header';
-import {authenticate, updateExpiry, logout} from './components/AuthUtil';
-import './styles/Sign.css';
+import './styles/Main.css';
 
 
 class App extends React.Component{
@@ -20,25 +19,22 @@ class App extends React.Component{
         const query = localStorage.getItem('query');
         const count = localStorage.getItem('count');
         const type = localStorage.getItem('type');
-        // console.log(page);
         var link;
         if(type==='0'){
             link = `https://api.stya.net/nim/byid?query=${query}&count=${count}&page=${page}`;
         }else{
             link = `https://api.stya.net/nim/byname?name=${query}&count=${count}&page=${page}`;
         }
-        // console.log(link);
         const request=await fetch(link, {
             method: 'GET',
             headers: new Headers({'Auth-Token': token})
         });
         const result=await request.json();
-        // console.log(result);
-        if(result.code!==-2){
+        if(result.status === 'OK'){
             this.setState({ [key]:result.payload });
         }else{
             alert('Token invalid. Silahkan lakukan login kembali.');
-            logout();
+            localStorage.clear();
             this.props.history.push('/');
         }
     }
@@ -46,7 +42,6 @@ class App extends React.Component{
     search = (e) => {
         e.preventDefault();
         const form=e.target.elements;
-        // console.log(this.state);
         localStorage.setItem('query',form.query.value);
         localStorage.setItem('count',form.count.value);
         localStorage.setItem('type',form.type.value);
@@ -62,21 +57,15 @@ class App extends React.Component{
                     message:'Pilih tipe pencarian terlebih dahulu' 
                 });
             }else{
-                if (authenticate()===1) {
-                    updateExpiry();
-                    this.requestAPI(this.state.page,'curResult');
-                    this.requestAPI(this.state.page+1,'nextResult');
-                } else {
-                    alert('Sesi sudah habis. Silahkan lakukan login kembali');
-                    logout();
-                    this.props.history.push('/');
-                }
+                this.requestAPI(this.state.page,'curResult');
+                this.requestAPI(this.state.page+1,'nextResult');
             }
         });
     }
 
     next = () => {
-        const newCur = this.state.nextResult;
+        //disimpan terlebih dahulu karena setState bersifat async
+        const newCur = this.state.nextResult; 
         const newPrev = this.state.curResult;
         const newPage = this.state.page+1;
         this.setState({
@@ -90,6 +79,7 @@ class App extends React.Component{
     }
 
     prev = () => {
+        //disimpan terlebih dahulu karena setState bersifat async
         const newCur = this.state.prevResult;
         const newNext = this.state.curResult;
         const newPage = this.state.page-1;
@@ -108,7 +98,6 @@ class App extends React.Component{
     }
 
     componentDidUpdate = (prevProps, prevState) => {
-        // console.log(prevState);
         if(this.state.curResult!==prevState.curResult){
             if(Array.isArray(this.state.curResult) && this.state.curResult.length===0){
                 this.setState({ message: 'Hasil tidak ditemukan' });
@@ -119,7 +108,7 @@ class App extends React.Component{
     render(){
         return(
             <div>
-                <Header logout={logout} />
+                <Header logout={true}/>
                 <Form search={this.search}/>
                 <Result 
                     prevResult={this.state.prevResult}

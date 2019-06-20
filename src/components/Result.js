@@ -27,8 +27,8 @@ const Result = props => (
             </table>
         }
         <p>{props.message}</p>
-        {Array.isArray(props.prevResult) && props.prevResult.length!==0 && <button id='prev' className='button-sign' onClick={props.prev}>Sebelumnya</button>}
-        {Array.isArray(props.nextResult) && props.nextResult.length!==0 && <button id='next' className='button-sign' onClick={props.next}>Selanjutnya</button>}
+        {Array.isArray(props.prevResult) && props.prevResult.length!==0 && <button id='prev' className='button' onClick={props.prev}>Sebelumnya</button>}
+        {Array.isArray(props.nextResult) && props.nextResult.length!==0 && <button id='next' className='button' onClick={props.next}>Selanjutnya</button>}
     </div>
 );
 

@@ -5,7 +5,7 @@ import '../styles/Header.css';
 const Header = (props) => (
     <div className='main-header'>
         <span className='title-header'>Oekla NIM Finder</span>
-        { props.logout && <Link to='/' className='logout-header' onClick={props.logout}> Keluar </Link> }
+        { props.logout && <Link to='/' className='logout-header' onClick={()=>{localStorage.clear()}}> Keluar </Link> }
     </div>
 
 );

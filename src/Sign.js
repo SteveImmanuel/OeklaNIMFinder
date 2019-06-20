@@ -1,8 +1,8 @@
 import React from 'react';
-import Login from './Login';
-import Register from './Register';
-import Header from './Header';
-import '../styles/Sign.css';
+import Login from './components/Login';
+import Register from './components/Register';
+import Header from './components/Header';
+import './styles/Main.css';
 
 
 class Sign extends React.Component {
@@ -22,14 +22,9 @@ class Sign extends React.Component {
             body: `username=${username}&password=${password}`
         });
         const result = await request.json();
-        console.log(result);
-        if(result.code===0){
-            var expiry=new Date();
-            expiry.setDate(expiry.getDate()+1);
-            console.log(expiry)
+        if(result.status==='OK'){
             localStorage.setItem('token',result.token);
-            localStorage.setItem('expire',expiry);
-            this.props.history.push('/home');
+            this.props.history.push('/app');
         }else{
             //wrong pass / username
             this.setState({ message:'Username atau password salah!' });
@@ -46,8 +41,7 @@ class Sign extends React.Component {
             body: `username=${username}&password=${password}`
         });
         const result = await request.json();
-        console.log(result);
-        if(result.code===0){
+        if(result.status==='OK'){
             this.showLogin();
             this.setState({ message:'Akun berhasil dibuat, silahkan login menggunakan username dan password tadi'});
         }else{
@@ -75,7 +69,7 @@ class Sign extends React.Component {
         return(
             <div>
                 <Header/>        
-                {this.state.message && <div className='message-sign'>{this.state.message}</div>}
+                {this.state.message && <div className='message'>{this.state.message}</div>}
                 {this.state.login && <Login login={this.login} showRegister={this.showRegister}/>}
                 {this.state.register && <Register register={this.register} showLogin={this.showLogin}/>}
             </div>
