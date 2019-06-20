@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4d3f3e45d74582393f059eecd6b771b0",
+    "revision": "952acd4d6914024a9369156b51632775",
     "url": "/OeklaNIMFinder/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/OeklaNIMFinder/static/css/2.22a7d4ef.chunk.css"
   },
   {
-    "revision": "0f67545457bbb7496837",
+    "revision": "115ccea11a679f9c606a",
     "url": "/OeklaNIMFinder/static/css/main.c335a78b.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/OeklaNIMFinder/static/js/2.125a33c0.chunk.js"
   },
   {
-    "revision": "0f67545457bbb7496837",
-    "url": "/OeklaNIMFinder/static/js/main.a299eeba.chunk.js"
+    "revision": "115ccea11a679f9c606a",
+    "url": "/OeklaNIMFinder/static/js/main.0bd13040.chunk.js"
   },
   {
     "revision": "1c17c092ca30638b1fd2",
