@@ -5,7 +5,7 @@ Aplikasi ini merupakan NIM <i>Finder</i> ITB yang dibuat menggunakan React. Apli
 
 
 ## Instalasi
-Untuk mejalankan aplikasi ini pada localHost, pertama lakukan <i>clone repository</i> ini di tempat yang diinginkan. Pastikan di perangkat anda sudah terinstall <code>npm</code> https://nodejs.org/en/download/. Selanjutnya buka terminal/cmd dan pindah ke direktori hasil <i>clone</i> tadi dan ketik:
+Untuk mejalankan aplikasi ini pada <i>localHost</i>, pertama lakukan <i>clone repository</i> ini di tempat yang diinginkan. Pastikan di perangkat anda sudah terinstall <code>npm</code> https://nodejs.org/en/download/. Selanjutnya buka terminal/cmd dan pindah ke direktori hasil <i>clone</i> tadi dan ketik:
 
 ```
 npm install
@@ -16,7 +16,7 @@ npm start
 ```
 Pada <i>browser</i> yang anda gunakan akan terbuka <i>tab</i> baru berisi aplikasi ini.
 
-Selain dijalankan pada localHost, aplikasi ini juga dapat diakses melalui https://steveimmanuel.github.io/OeklaNIMFinder/.
+Selain dijalankan pada <i>localHost</i>, aplikasi ini juga dapat diakses melalui https://steveimmanuel.github.io/OeklaNIMFinder/.
 ## Penggunaan
 Setelah berhasil terinstall dengan benar, maka pada <i>browser</i> anda seharusnya akan muncul tampilan pada bagian kiri seperti berikut.
 <div style='text-align:center'>
@@ -24,7 +24,7 @@ Setelah berhasil terinstall dengan benar, maka pada <i>browser</i> anda seharusn
 </div>
 Pastikan anda sudah terhubung dengan internet, kemudian lakukan pendaftaran pada <i>form</i> tersebut. Jika anda sudah punya akun, anda dapat melakukan <i>login</i> dengan meng-<i>click</i> tulisan sini yang bercetak biru pada gambar kiri di atas dan akan muncul <i>form login</i> seperti pada gambar kanan di atas. 
 <div style='text-align:center'>
-<img style='margin:5px' src='img/app.PNG' width=45%><img style='margin:5px' src='img/appres.PNG' width=45%>
+<img style='margin:5px' src='img/app.PNG' width=45%><img style='margin:5px' src='img/apprslt.PNG' width=45%>
 </div>
 Setelah berhasil melakukan <i>login</i>, anda dapat mencari mahasiswa ITB berdasarkan nama atau NIM seperti pada gambar di atas.
 
